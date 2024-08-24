@@ -19,26 +19,35 @@
         }
 
         body {
-            background: linear-gradient(270deg, #e4d2d2, #dd80a4, #df6c92, #df488e);
+            background: linear-gradient(270deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
             background-size: 800% 800%;
             animation: gradientBG 5s ease infinite;
         }
     </style>
 </head>
-<body class="flex justify-center h-[100vh] items-center text-black m-0 animate-gradient">
-    <div class="text-center bg-white p-[30px] rounded-[12px] shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
+<body class="flex justify-center h-[100vh] items-center text-black m-0 bg-gradient-to-r from-blue-500 to-red-500 animate-gradient">
+    <!-- View chính -->
+    <div id="main-view" class="text-center bg-white p-[30px] rounded-[12px] p-[50px] shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
         <p id="names" class="font-bold text-4xl uppercase"></p>
         <p class="text-red-500">Có thể quay lại hay không</p>
         <p>( Random giữa 1 triệu kết quả )</p>
         <button onclick="determineFate()" class="py-[10px] px-[20px] m-[10px] cursor-pointer rounded-[5px] bg-blue-500 text-white text-[16px] hover:bg-blue-700">CHECK !!!</button>
-        <p id="fate" class="mt-[20px] text-[18px] text-red-500 font-bold"></p>
     </div>
+
+    <!-- View kết quả -->
+    <div id="result-view" class="hidden text-center bg-white p-[30px] rounded-[12px] p-[50px] shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
+        <p id="result-text" class="text-[18px] font-bold text-red-500"></p>
+        <button onclick="goBack()" class="py-[10px] px-[20px] m-[10px] cursor-pointer rounded-[5px] bg-green-500 text-white text-[16px] hover:bg-blue-700">Quay lại</button>
+    </div>
+
     <script>
         alert("Chào mừng bạn đã đến với hệ thống check kết quả ngẫu nhiên\n- Sent by Trần Văn Quyền -");
 
+        // Prompt for names when the page loads
         const name1 = prompt("Nhập tên người thứ nhất:");
         const name2 = prompt("Nhập tên người thứ hai:");
         
+        // Display the names
         document.getElementById("names").innerText = `${name1} vs ${name2}`;
 
         function determineFate() {
@@ -53,7 +62,19 @@
                 }
                 output += vanmenh + '<br>';
             }
-            document.getElementById('fate').innerHTML = output;
+
+            // Hiển thị kết quả trên view kết quả
+            document.getElementById('result-text').innerHTML = `KẾT QUẢ: <br>${output}`;
+
+            // Ẩn view chính và hiện view kết quả
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('hidden');
+        }
+
+        function goBack() {
+            // Hiện lại view chính và ẩn view kết quả
+            document.getElementById('main-view').classList.remove('hidden');
+            document.getElementById('result-view').classList.add('hidden');
         }
 
         // Lắng nghe sự kiện 'contextmenu' trên toàn bộ trang
@@ -73,5 +94,8 @@
             }
         });
     </script>
+
+    
 </body>
+
 </html>
