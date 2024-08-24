@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Love</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center h-[100vh] items-center text-black m-0 bg-gradient-to-r from-cyan-500 to-blue-500">
+    <div class="text-center bg-white p-[30px] rounded-[12px] p-[50px] shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
+        <p id="names" class="font-bold text-4xl uppercase"></p>
+        <p class="text-red-500">Có thể quay lại hay không</p>
+        <p>( Random giữa 1 triệu kết quả )</p>
+        <button onclick="determineFate()" class="py-[10px] px-[20px] m-[10px] cursor-pointer rounded-[5px] bg-blue-500 text-white text-[16px] hover:bg-blue-700">CHECK !!!</button>
+        <p id="fate" class="mt-[20px] text-[18px]"></p>
+    </div>
+    <script>
+        alert("Chào mừng bạn đã đến với hệ thống check kết quả ngẫu nhiên\n- Sent by Trần Văn Quyền -");
+        const name1 = prompt("Nhập tên người thứ nhất:");
+        const name2 = prompt("Nhập tên người thứ hai:");
+        document.getElementById("names").innerText = `${name1} vs ${name2}`;
+
+        function determineFate() {
+            let vanmenh = "No";
+            const sophan = Math.floor(Math.random() * 1000000);
+            let output = '';
+            for (let i = 0; i < 20; i++) {
+                if (sophan % 2 === 0) {
+                    vanmenh = "Yes";
+                    document.body.style.background = "pink";
+                } else {
+                    document.body.style.background = "orange";
+                }
+                output += vanmenh + '<br>';
+            }
+            document.getElementById('fate').innerHTML = output;
+        }
+
+        // Lắng nghe sự kiện 'contextmenu' trên toàn bộ trang
+        document.addEventListener('contextmenu', function(event) {
+            // Ngăn chặn menu chuột phải mặc định
+            event.preventDefault();
+            // Hiển thị thông báo
+            alert('Xin chào ! \nHành động của bạn bị vô hiệu hóa !\n- Sent by Trần Văn Quyền -');
+        });
+
+        // Lắng nghe sự kiện 'keydown' để kiểm tra khi người dùng nhấn phím F12
+        document.addEventListener('keydown', function(event) {
+            // Kiểm tra nếu phím F12 (mã phím 123) được nhấn
+            if (event.key === 'F12' || event.keyCode === 123) {
+                event.preventDefault();
+                alert('Xin Chào ! \nBạn không thể mở DevTools bằng F12 ! \n- Sent by Trần Văn Quyền -');
+            }
+        });
+
+
+        // Khởi tạo biến để theo dõi thời gian giữ chuột
+        let mouseHoldTimeout;
+        // Lắng nghe sự kiện 'mousedown' trên tất cả các ảnh
+        document.querySelectorAll('#image-grid').forEach(function(image) {
+            image.addEventListener('mousedown', function(event) {
+                // Khởi động bộ đếm thời gian
+                mouseHoldTimeout = setTimeout(function() {
+                    event.preventDefault(); // Ngăn hành động mặc định
+                    alert('Xin chào ! \nBạn không thể giữ chuột trên ảnh này ! \n- Sent by Trần Văn Quyền -');
+                }, 500); // Ngưỡng giữ chuột (500ms)
+            });
+
+            // Khi nhả chuột, xóa bộ đếm giờ
+            image.addEventListener('mouseup', function() {
+                clearTimeout(mouseHoldTimeout);
+            });
+
+            // Khi chuột rời khỏi ảnh, xóa bộ đếm giờ
+            image.addEventListener('mouseleave', function() {
+                clearTimeout(mouseHoldTimeout);
+            });
+        });
+    </script>
+</body>
+
+</html>
